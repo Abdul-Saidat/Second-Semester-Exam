@@ -5,7 +5,6 @@ import { Link } from "@tanstack/react-router";
 import Filter from "../components/Filter";
 import { useLocation } from "@tanstack/react-router";
 
-
 export const Route = createFileRoute("/")({
   component: RouteComponent,
 });
@@ -21,7 +20,7 @@ const fetchTodos = async (page) => {
 };
 
 function RouteComponent() {
-   const Page = 200;
+  const Page = 200;
   const location = useLocation();
   const incomingPage = location.state?.currentPage;
   const [completionStatus, setCompletionStatus] = useState("all");
@@ -32,6 +31,8 @@ function RouteComponent() {
     queryFn: () => fetchTodos(page),
     keepPreviousData: true,
   });
+
+  // store checked todos in localStorage
   const [checkedTodos, setCheckedTodos] = useState(() => {
     const localStorageKey = "checkedTodoIds";
     const storedTodoString = localStorage.getItem(localStorageKey);
@@ -49,22 +50,23 @@ function RouteComponent() {
     return [];
   });
 
+  // save updated checkedTodos state to localStorage
   useEffect(() => {
     localStorage.setItem("checkedTodoIds", JSON.stringify(checkedTodos));
   }, [checkedTodos]);
-
-
   if (isPending)
     return (
-      <div className="flex w-52 flex-col gap-4 items-center justify-center ">
-        <div className="skeleton h-32 w-full"></div>
-        <div className="skeleton h-4 w-28"></div>
-        <div className="skeleton h-4 w-full"></div>
-        <div className="skeleton h-4 w-full"></div>
-        <div className="skeleton h-32 w-full"></div>
-        <div className="skeleton h-4 w-28"></div>
-        <div className="skeleton h-4 w-full"></div>
-        <div className="skeleton h-4 w-full"></div>
+      <div className="flex items-center justify-center  min-h-screen">
+        <div className="flex w-82 flex-col gap-4 items-center">
+          <div className="skeleton h-32 w-full"></div>
+          <div className="skeleton h-4 w-28"></div>
+          <div className="skeleton h-4 w-full"></div>
+          <div className="skeleton h-4 w-full"></div>
+          <div className="skeleton h-32 w-full"></div>
+          <div className="skeleton h-4 w-28"></div>
+          <div className="skeleton h-4 w-full"></div>
+          <div className="skeleton h-4 w-full"></div>
+        </div>
       </div>
     );
   if (error) return "An error has occurred: " + error.message;
@@ -72,10 +74,12 @@ function RouteComponent() {
     event.preventDefault();
   };
 
+  // filter by title
   const searchResult = data.filter((todo) =>
     todo.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // filter todo by "completed" and "uncompleted"
   let finalDisplayTodos;
   if (completionStatus == "all") {
     finalDisplayTodos = searchResult;
@@ -91,12 +95,17 @@ function RouteComponent() {
 
   return (
     <>
-      <h1 className="flex items-center justify-center font-bold">TODO-LIST</h1>
-      <section className="flex items-center justify-center  min-h-screen">
-        <div className=" w-150 h-full shadow-lg   p-4 rounded-lg border border-white/20 backdrop-blur-sm ">
-          <div className=" -50 flex items-center justify-center ">
-            <form action="" onSubmit={handleSubmit} name="todo-form">
-              <label className="input">
+      <section className=" flex justify-center py-10 pt-20 ">
+        <div className=" flex flex-col gap-y-8 w-full max-w-2xl min-h-[80vh] shadow-lg p-10 rounded-lg backdrop-blur-lg  ">
+          <h1 className="text-center">TODO-LIST</h1>
+          <form
+            action=""
+            onSubmit={handleSubmit}
+            name="todo-form"
+            className="w-full flex flex-col gap-y-8"
+          >
+            <div className=" flex flex-col w-full items-center ">
+              <label className=" w-full input flex items-center gap-1 rounded-lg py-4 md:max-w-md mx-auto">
                 <svg
                   className="h-[1em] opacity-50"
                   xmlns="http://www.w3.org/2000/svg"
@@ -118,70 +127,73 @@ function RouteComponent() {
                   placeholder="Search"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
+                  className="text-white focus:outline-none rounded-lg"
                 />
               </label>
 
-              {finalDisplayTodos.map((todo) => (
-                <div key={todo.id}>
-                  <ul>
-                    <input
-                      type="checkbox"
-                      name="todo-check"
-                      id="todo-check"
-                      checked={checkedTodos.includes(todo.id)}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setCheckedTodos([...checkedTodos, todo.id]);
-                        } else {
-                          setCheckedTodos(
-                            checkedTodos.filter((id) => id !== todo.id)
-                          );
-                        }
-                      }}
-                    />{" "}
-                    <Link
-                      to={`/todos/${todo.id}`}
-                      state={{ currentPage: page }}
-                    >
-                      {" "}
-                      {todo.title}{" "}
-                    </Link>
-                  </ul>
-                </div>
-              ))}
-              <div>{isFetching ? "Updating..." : ""}</div>
-              <section className="join grid grid-cols-2">
-                <button
-                  className="join-item btn btn-outline"
-                  onClick={() => setPage((prev) => (prev > 1 ? prev - 1 : 1))}
-                >
-                  Previous page
-                </button>
-                <p>
-                  Page {page} of {Page}{" "}
-                </p>
-                <button
-                  className="join-item btn btn-outline"
-                  onClick={() => setPage((prev) => prev + 1)}
-                >
-                  Next
-                </button>
-              </section>
-              <Filter
-                completionStatus={completionStatus}
-                setCompletionStatus={setCompletionStatus}
-              />
-            </form>
-          </div>
+              <div className="w-full max-w-sm mx-auto px-4 space-y-6 cursor-pointer ">
+                {finalDisplayTodos.map((todo) => (
+                  <div
+                    key={todo.id}
+                    className=" flex items-center gap-4 border h-auto  px-5 py-4 rounded-lg shadow "
+                  >
+                    <ul>
+                      <input
+                        className="w-5 h-5 cursor-pointer"
+                        type="checkbox"
+                        name="todo-check"
+                        id="todo-check"
+                        checked={checkedTodos.includes(todo.id)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setCheckedTodos([...checkedTodos, todo.id]);
+                          } else {
+                            setCheckedTodos(
+                              checkedTodos.filter((id) => id !== todo.id)
+                            );
+                          }
+                        }}
+                      />{" "}
+                      <Link
+                        className={"font-semibold text-lg"}
+                        to={`/todos/${todo.id}`}
+                        state={{ checkedTodos, currentPage: page }}
+                      >
+                        {" "}
+                        {todo.title}{" "}
+                      </Link>
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>{isFetching ? "Updating..." : ""}</div>
+            <section className="join grid grid-cols-3 mb-8">
+              <button
+                className="join-item btn btn-outline border-4 focus:outline-4 rounded-lg shadow-md"
+                onClick={() => setPage((prev) => (prev > 1 ? prev - 1 : 1))}
+                disabled={page === 1}
+              >
+                Previous page
+              </button>
+              <span className="col-span-1 text-lg font-bold text-center self-center">
+                Page {page} of {Page}{" "}
+              </span>
+              <button
+                className="join-item btn btn-outline rounded-4xl shadow-md "
+                onClick={() => setPage((prev) => prev + 1)}
+              >
+                Next Page
+              </button>
+            </section>
+            <Filter
+              completionStatus={completionStatus}
+              setCompletionStatus={setCompletionStatus}
+            />
+          </form>
         </div>
       </section>
     </>
   );
 }
 
-// when i click back to list on the details page, it should take me back to the exact page i left from
-//  {data.map((todo) => (
-//               <div key={todo.id}>
-//                <Link to={`/todos/${todo.id}`} state={{ currentPage: page}} > {todo.title} </Link>
-//               </div>
-//             ))}

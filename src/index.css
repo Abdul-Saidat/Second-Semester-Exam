@@ -1,12 +1,27 @@
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
-
-/* @import "tailwindcss";  */
-/* q
- */
- @import "tailwindcss/preflight";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,500;0,600;0,700;1,100&display=swap");
+@import "tailwindcss/preflight";
 @import "tailwindcss";
+body {
+  font-family: Poppins, sans-serif;
+}
+
+h1 {
+  font-size: 25px;
+}
+
+button {
+  border: 1px solid #001e29;
+  border-radius: 10px;
+  padding-inline: 5px;
+}
+button:hover {
+  transform: scale(1.02);
+  transition: all 0.3s ease-in-out;
+  background-color: #003944;
+}
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark, halloween;
+  themes:
+    light --default,
+    dark --prefersdark,
+    abyss;
 }
