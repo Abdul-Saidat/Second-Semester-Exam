@@ -170,7 +170,7 @@ function RouteComponent() {
             <div>{isFetching ? "Updating..." : ""}</div>
             <section className="join grid grid-cols-3 mb-8">
               <button
-                className="join-item btn btn-outline border-4 focus:outline-4 rounded-lg shadow-md"
+                className="join-item btn btn-outline shadow-md"
                 onClick={() => setPage((prev) => (prev > 1 ? prev - 1 : 1))}
                 disabled={page === 1}
               >
@@ -180,7 +180,7 @@ function RouteComponent() {
                 Page {page} of {Page}{" "}
               </span>
               <button
-                className="join-item btn btn-outline rounded-4xl shadow-md "
+                className="join-item btn btn-outline shadow-md "
                 onClick={() => setPage((prev) => prev + 1)}
               >
                 Next Page

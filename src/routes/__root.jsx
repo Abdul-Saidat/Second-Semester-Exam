@@ -32,8 +32,7 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <>
-      <header className="p-2 flex items-center justify-center gap-20 text-lg border-b">
-        <nav>
+      <header className=" flex items-center justify-center gap-50 text-lg border-b">
           <Link
             to="/"
             activeProps={{
@@ -52,7 +51,7 @@ function RootComponent() {
           >
             Test-Error
           </Link>
-        </nav>
+
       </header>
       <hr />
       <main className="py-2 px-4">
