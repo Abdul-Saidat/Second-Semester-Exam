@@ -56,8 +56,8 @@ Made use of [JSONPlaceholder](jsonplaceholder.typicode.com) using Tanstack query
 Endpoints used are: /todos (Fetches a list of todos) and /todos/:id (Fetches the details of a single todo)
 Returned a list of todos which was displayed using pagination
 ### Key Features
-![Home Page](<img width="960" alt="image" src="https://github.com/user-attachments/assets/8fb7877d-4a1d-4bba-9a36-fa19865ea03e" />)
-![Detail Page](<img width="960" alt="image" src="https://github.com/user-attachments/assets/5e271ff9-5a89-46b1-826d-4a2d7d45d05f" />)
+![Home Page](./src/assets/Screenshot%202025-06-15%20095116.png)
+![Detail Page](./src/assets/Screenshot%202025-06-15%20095413.png)
 
 ### Limitations
 - I was unable to include the bonus features even though I desperately wanted to do so.
