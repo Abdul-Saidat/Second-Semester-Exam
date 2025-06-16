@@ -54,8 +54,8 @@ Put Tailwind CSS and daisyUI in your CSS file (and remove old styles)
 ### API Documentation and Usage
 Made use of [JSONPlaceholder](jsonplaceholder.typicode.com) using Tanstack query (useQuery)
 Endpoints used are:
--/todos (Fetches a list of todos, which was displayed using pagination)
--/todos/:id (Fetches the details of a single todo)
+- /todos (Fetches a list of todos, which was displayed using pagination)
+- /todos/:id (Fetches the details of a single todo)
 Returned a list of todos which was displayed using pagination
 ### Key Features
 ![Home Page](./src/assets/Screenshot%202025-06-15%20095116.png)
