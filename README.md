@@ -40,7 +40,7 @@ Put Tailwind CSS and daisyUI in your CSS file (and remove old styles)
 ### Available Scripts
 - `npm run dev` - Starts the deployment server
 - `npm run build` - Builds the app for production
-- `npm run lint` - Runs ESNLint to analyze code for errors and
+- `npm run lint` - Runs ESLint to analyze code for errors and
 - `npm run preview` - Previews the production built locally
 
 ### Tech Stack and Architectural decisions
@@ -53,7 +53,9 @@ Put Tailwind CSS and daisyUI in your CSS file (and remove old styles)
 
 ### API Documentation and Usage
 Made use of [JSONPlaceholder](jsonplaceholder.typicode.com) using Tanstack query (useQuery)
-Endpoints used are: /todos (Fetches a list of todos) and /todos/:id (Fetches the details of a single todo)
+Endpoints used are:
+-/todos (Fetches a list of todos, which was displayed using pagination)
+-/todos/:id (Fetches the details of a single todo)
 Returned a list of todos which was displayed using pagination
 ### Key Features
 ![Home Page](./src/assets/Screenshot%202025-06-15%20095116.png)
