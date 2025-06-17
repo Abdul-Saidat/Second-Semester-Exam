@@ -54,17 +54,18 @@ Put Tailwind CSS and daisyUI in your CSS file (and remove old styles)
 ### API Documentation and Usage
 Made use of [JSONPlaceholder](jsonplaceholder.typicode.com) using Tanstack query (useQuery)
 Endpoints used are:
-- /todos (Fetches a list of todos, which was displayed using pagination)
+- /todos (Fetches a list of todos, Returned a list of todos which was displayed using pagination)
 - /todos/:id (Fetches the details of a single todo)
-Returned a list of todos which was displayed using pagination
+- POST /todos – Create new todo
+- DELETE /todos/{id} - Delete a todo
 ### Key Features
 ![Home Page](./src/assets/Screenshot%202025-06-15%20095116.png)
 ![Detail Page](./src/assets/Screenshot%202025-06-15%20095413.png)
 
 ### Limitations
-- Not too good with JavaScript and react, spent more time researching and gathering information from several sources
+- I am not very proficient with JavaScript and React yet, spent a lot of time researching and gathering information from various sources
 - It was my first time using Tailwind CSS. I had a rough start, but I was able to grasp it along the way  
-- UI isn't as amazing as I wanted it to be
+- The UI isn't where I want it yet, but it serves it purpose for now and I'm excited to keep improving it
 
   ### Future improvements
   - Optimize CRUD operations and broaden app functionalities
