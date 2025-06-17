@@ -13,7 +13,7 @@ function ErrorBoundary({ error }) {
             </p>
             <Link to="/">
               <button
-                className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl px-6 py-3 text-lg rounded-md shadow-md mt-4"
+                className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl px-6 py-3 text-lg rounded-md shadow-md mt-4 "
                 onClick={() => navigate({ to: "/" })}
               >
                 Back To List

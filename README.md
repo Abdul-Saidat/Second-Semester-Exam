@@ -62,10 +62,11 @@ Returned a list of todos which was displayed using pagination
 ![Detail Page](./src/assets/Screenshot%202025-06-15%20095413.png)
 
 ### Limitations
-- I was unable to include the bonus features even though I desperately wanted to do so.
+- Not too good with JavaScript and react, spent more time researching and gathering information from several sources
+- It was my first time using Tailwind CSS. I had a rough start, but I was able to grasp it along the way  
 - UI isn't as amazing as I wanted it to be
 
   ### Future improvements
-  - Implement CRUD operations and more functionalities
+  - Optimize CRUD operations and broaden app functionalities
     # Thank You!!!!  ❤️❤️
 
