@@ -1,16 +1,26 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { FaTrash } from "react-icons/fa";
 
-function HandleDelete({ todo, page }) {
+interface TodoItem  {
+    todo: string,
+    completed: boolean,
+    id: number,
+  } 
+
+  interface HandleDeleteProps  {
+    todo: TodoItem,
+    page: number,
+  } 
+function HandleDelete({ todo, page }: HandleDeleteProps) {
   const queryClient = useQueryClient();
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: number) => {
     await fetch(`https://jsonplaceholder.typicode.com/todos${id}`, {
       method: "DELETE",
     });
-    queryClient.setQueryData(["todos", page], (oldTodo) => {
+    queryClient.setQueryData(["todos", page], (oldTodo: TodoItem[]) => {
       if (!oldTodo) return [];
 
-      return oldTodo.filter((todo) => todo.id != id);
+      return oldTodo.filter((t) => t.id != id);
     });
   };
 

@@ -1,4 +1,10 @@
-function Status({ completionStatus }) {
+type StatusType = "all" | "completed" | "uncompleted";
+
+interface StatusProps {
+  completionStatus: StatusType;
+}
+
+function Status({ completionStatus }: StatusProps) {
   const completion = completionStatus ? "completed" : "uncompleted";
 
   return (

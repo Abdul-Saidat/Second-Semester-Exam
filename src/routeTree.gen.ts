@@ -9,15 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TestErrorRouteImport } from './routes/test-error'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TodosTodoIdRouteImport } from './routes/todos/$todoId'
 
-const TestErrorRoute = TestErrorRouteImport.update({
-  id: '/test-error',
-  path: '/test-error',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,31 +25,27 @@ const TodosTodoIdRoute = TodosTodoIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/test-error': typeof TestErrorRoute
   '/todos/$todoId': typeof TodosTodoIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/test-error': typeof TestErrorRoute
   '/todos/$todoId': typeof TodosTodoIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/test-error': typeof TestErrorRoute
   '/todos/$todoId': typeof TodosTodoIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/test-error' | '/todos/$todoId'
+  fullPaths: '/' | '/todos/$todoId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/test-error' | '/todos/$todoId'
-  id: '__root__' | '/' | '/test-error' | '/todos/$todoId'
+  to: '/' | '/todos/$todoId'
+  id: '__root__' | '/' | '/todos/$todoId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  TestErrorRoute: typeof TestErrorRoute
   TodosTodoIdRoute: typeof TodosTodoIdRoute
 }
 
@@ -66,13 +56,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/test-error': {
-      id: '/test-error'
-      path: '/test-error'
-      fullPath: '/test-error'
-      preLoaderRoute: typeof TestErrorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/todos/$todoId': {
@@ -87,7 +70,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  TestErrorRoute: TestErrorRoute,
   TodosTodoIdRoute: TodosTodoIdRoute,
 }
 export const routeTree = rootRouteImport

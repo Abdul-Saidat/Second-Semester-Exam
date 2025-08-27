@@ -1,4 +1,10 @@
-function Filter({ completionStatus, setCompletionStatus }) {
+type StatusType = "all" | "completed" | "uncompleted";
+
+interface StatusProps {
+  completionStatus: StatusType;
+  setCompletionStatus: (value: StatusType) => void;
+}
+function Filter({ completionStatus, setCompletionStatus }: StatusProps) {
   return (
     <>
       <div className="flex items-center justify-around">
