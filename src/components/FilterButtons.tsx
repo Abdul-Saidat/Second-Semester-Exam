@@ -1,4 +1,9 @@
-function FilterButtons({ page, setPage }) {
+interface PageProps {
+  page: number;
+  setPage: (value: number | ((prev: number) => number)) => void
+}
+
+function FilterButtons({ page, setPage }: PageProps) {
   const Page = 200;
 
   return (

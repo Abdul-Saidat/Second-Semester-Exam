@@ -1,6 +1,11 @@
 import CreateTodo from "./CreateTodo";
 
-function SearchInput({ searchTerm, setSearchTerm }) {
+interface SearchProps {
+  searchTerm: string;
+  setSearchTerm: (value: string) => void
+}
+
+function SearchInput({ searchTerm, setSearchTerm }: SearchProps) {
   return (
     <>
       <label className=" w-full input flex items-center gap-1 rounded-lg py-4 md:max-w-md mx-auto">

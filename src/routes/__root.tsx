@@ -1,6 +1,6 @@
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import ErrorBoundary from "../components/ErrorBoundary";
+import ErrorBoundary from "../error/ErrorBoundary";
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -33,25 +33,24 @@ function RootComponent() {
   return (
     <>
       <header className=" flex items-center justify-center gap-50 text-lg border-b">
-          <Link
-            to="/"
-            activeProps={{
-              className: "font-bold",
-            }}
-            activeOptions={{ exact: true }}
-          >
-            Todos
-          </Link>
+        <Link
+          to="/"
+          activeProps={{
+            className: "font-bold",
+          }}
+          activeOptions={{ exact: true }}
+        >
+          Todos
+        </Link>
 
-          <Link
-            to="/test-error"
-            activeProps={{
-              className: "font-bold",
-            }}
-          >
-            Test-Error
-          </Link>
-
+        <Link
+          to="/test-error"
+          activeProps={{
+            className: "font-bold",
+          }}
+        >
+          Test-Error
+        </Link>
       </header>
       <hr />
       <main className="py-2 px-4">
