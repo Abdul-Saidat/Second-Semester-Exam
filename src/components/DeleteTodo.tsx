@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { FaTrash } from "react-icons/fa";
 
 interface TodoItem  {
-    todo: string,
+    todo?: string,
     completed: boolean,
     id: number,
   } 

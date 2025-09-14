@@ -1,21 +1,22 @@
 import { useState } from "react";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { getCreatedTodos, saveCreatedTodos } from "../../src/utils/storage";
 
 function CreateTodo() {
   const [newTodoTitle, setNewTodoTitle] = useState("");
   const [userId, setUserId] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
 
-  type Todos = {
+  type Todo = {
+    id: number;
     title: string;
     completed: boolean;
     userId: number;
   };
+  // type Todos = Todo[];
 
-  type todos = Todos[];
-
-  const addNewTodo = async (newTodo: Todos) => {
+  const addNewTodo = async (newTodo: Todo): Promise<Todo> => {
     const response = await axios.post(
       "https://jsonplaceholder.typicode.com/todos",
       newTodo
@@ -25,19 +26,37 @@ function CreateTodo() {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: addNewTodo,
-    onSuccess: (data) => {
-      queryClient.setQueryData(["todos"], (oldTodos: todos) => {
-        return oldTodos ? [data, ...oldTodos] : [data];
-      });
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    onSuccess: (data: Todo) => {
+      const newTodo = {
+        id: Date.now(),
+        title: data.title || newTodoTitle,
+        completed: false,
+        userId: data.userId || userId,
+      };
+      const createdTodos = getCreatedTodos();
+      const updatedCreatedTodos = [newTodo, ...createdTodos];
+      saveCreatedTodos(updatedCreatedTodos);
+
+      // const PER_PAGE = 10;
+
+      // queryClient.setQueryData<Todo[]>(["todos", 1], (old = []) =>
+      //   [newTodo, ...old].slice(0, PER_PAGE)
+      // );
+
+      queryClient.invalidateQueries({queryKey: ["todos"]})
       setIsOpen(false);
-      // document.getElementById("my_modal_3").close();
     },
   });
 
   const handleSubmit = () => {
     if (!newTodoTitle.trim()) return;
-    mutation.mutate({ title: newTodoTitle, completed: false, userId });
+    mutation.mutate({
+      id: Date.now(),
+      title: newTodoTitle,
+      completed: false,
+      userId,
+    });
+    setIsOpen(false);
     setNewTodoTitle("");
   };
 
