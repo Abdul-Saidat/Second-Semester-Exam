@@ -8,6 +8,7 @@ import { queryClient } from "./queryClient";
 
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
+import { AuthProvider } from "./context/AuthContext";
 
 // Create a new router instance
 const router = createRouter({ routeTree });
@@ -27,7 +28,9 @@ if (rootElement) {
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools />
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </QueryClientProvider>
     </StrictMode>
   );

@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TodosTodoIdRouteImport } from './routes/todos/$todoId'
+import { Route as FetchTodosRouteImport } from './routes/fetch-todos'
+
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -20,6 +22,11 @@ const IndexRoute = IndexRouteImport.update({
 const TodosTodoIdRoute = TodosTodoIdRouteImport.update({
   id: '/todos/$todoId',
   path: '/todos/$todoId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FetchTodosRoute = FetchTodosRouteImport.update({
+  id: '/fetch-todos',
+  path: '/fetch-todos',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -36,17 +43,23 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/todos/$todoId': typeof TodosTodoIdRoute
 }
+export interface FileRoutesById {
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/fetch-todos': typeof FetchTodosRoute
+}
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths: '/' | '/todos/$todoId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/todos/$todoId'
-  id: '__root__' | '/' | '/todos/$todoId'
+  to: '/' | '/todos/$todoId' | '/fetch-todos'
+  id: '__root__' | '/' | '/todos/$todoId' | '/fetch-todos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   TodosTodoIdRoute: typeof TodosTodoIdRoute
+  FetchTodosRoute: typeof FetchTodosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +78,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TodosTodoIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/fetch-todos': {
+      id: '/fetch-todos'
+      path: '/fetch-todos'
+      fullPath: '/fetch-todos'
+      preLoaderRoute: typeof FetchTodosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   TodosTodoIdRoute: TodosTodoIdRoute,
+  FetchTodosRoute: FetchTodosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

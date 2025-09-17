@@ -1,6 +1,8 @@
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import ErrorBoundary from "../error/ErrorBoundary";
+import { useEffect, useState } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -12,7 +14,6 @@ export const Route = createRootRoute({
           <div className="w-full max-w-lg mx-auto">
             <div className=" border shadow-lg rounded-lg backdrop-blur-lg flex flex-col gap-y-6 items-center">
               <h1 className="text-center">
-                {" "}
                 OOOPPPS, SORRY, THE PAGE YOU ARE LOOKING FOR DOESN'T SEEM TO
                 EXIST
               </h1>
@@ -30,6 +31,14 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+  const auth = getAuth();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  useEffect(() => {
+    const changeTitle = onAuthStateChanged(auth, (user) => {
+      setIsAuthenticated(!!user);
+    });
+    return changeTitle;
+  }, []);
   return (
     <>
       <header className=" flex items-center justify-center gap-50 text-lg border-b">
@@ -40,17 +49,25 @@ function RootComponent() {
           }}
           activeOptions={{ exact: true }}
         >
-          Todos
+          {isAuthenticated ? "Todos" : "Landing Page"}
         </Link>
 
-        <Link
+        {/* <Link
           to="/test-error"
           activeProps={{
             className: "font-bold",
           }}
         >
           Test-Error
-        </Link>
+        </Link> */}
+        {/* <Link
+          to="/fetch-todos"
+          activeProps={{
+            className: "font-bold",
+          }}
+        >
+         Fetch todos
+        </Link> */}
       </header>
       <hr />
       <main className="py-2 px-4">

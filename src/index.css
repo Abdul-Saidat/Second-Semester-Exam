@@ -21,7 +21,7 @@ button:hover {
 }
 @plugin "daisyui" {
   themes:
-    light --default,
-    dark --prefersdark,
-    abyss;
+    /* light --default, */
+    /* dark --prefersdark, */
+    /* abyss; */
 }
