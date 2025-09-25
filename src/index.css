@@ -1,24 +1,44 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,500;0,600;0,700;1,100&display=swap");
-@import "tailwindcss/preflight";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* @import "tailwindcss/preflight"; */
 @import "tailwindcss";
+
+
+.montserrat {
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+}
+
+
+:root {
+  --bg: oklch(98.4% 0.003 247.858);
+  --overlay: hsla(0, 0%, 0%, 0.95);
+  --font: "Montserrat", sans-serif;
+}
 body {
-  font-family: Poppins, sans-serif;
+  @apply bg-slate-100;
+  @apply text-slate-500;
+  /* font-family: Poppins, sans-serif; */
+  /* background-color: var(--bg); */
+  font-family: var(--font);
 }
 
-h1 {
+
+
+/* h1 {
   font-size: 25px;
-}
+} */
 
-button {
+/* button {
   border: 1px solid #001e29;
   border-radius: 10px;
   padding-inline: 5px;
-}
-button:hover {
+} */
+/* button:hover {
   transform: scale(1.02);
   transition: all 0.3s ease-in-out;
   background-color: #003944;
-}
+} */
 @plugin "daisyui" {
   themes:
     /* light --default, */

@@ -34,32 +34,43 @@ function Signup() {
   };
   return (
     <>
-      <div className="flex flex-col">
-        <h1>Sign up</h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="px-4 py-4">
+        <h1 className="text-xl font-semibold">Sign up</h1>
+        <form onSubmit={handleSubmit(onSubmit)} className="py-3">
           <div>
-            <label htmlFor="email" className="block">
+            <label htmlFor="email" className="block font-semibold mb-0.5">
               Email:
             </label>
             <input
-              className="w-xl"
+              className=" border rounded-md w-full max-w-sm mb-3 px-3"
               {...register("email", { required: "Email is required" })}
               type="email"
+              id="email"
             />
-            {errors.email && <p>{errors.email.message}</p>}
+            {errors.email && (
+              <p className="text-red-600 mt-0">{errors.email.message}</p>
+            )}
           </div>
           <div>
-            <label htmlFor="password" className="block">
+            <label htmlFor="password" className="block mb-0.5 font-semibold">
               Password:
             </label>
             <input
-              className="w-xl"
+              className="border rounded-md w-full max-w-sm px-3"
               {...register("password", { required: "Password is required" })}
               type="password"
+              id="password"
             />
-            {errors.password && <p>{errors.password.message}</p>}
+            {errors.password && (
+              <p className="text-red-600">{errors.password.message}</p>
+            )}
           </div>
-          <button type="submit">{loading ? "Signing up" : "Sign up"}</button>
+          <button
+            className="px-5 py-1 mt-8 border rounded-md cursor-pointer bg-slate-700 hover:bg-slate-800 text-white"
+            type="submit"
+          >
+            {loading ? "Signing up" : "Sign up"}
+          </button>
         </form>
       </div>
     </>

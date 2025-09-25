@@ -14,7 +14,7 @@ interface TodoItem  {
 function HandleDelete({ todo, page }: HandleDeleteProps) {
   const queryClient = useQueryClient();
   const handleDelete = async (id: number) => {
-    await fetch(`https://jsonplaceholder.typicode.com/todos${id}`, {
+    await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
       method: "DELETE",
     });
     queryClient.setQueryData(["todos", page], (oldTodo: TodoItem[]) => {
@@ -28,7 +28,7 @@ function HandleDelete({ todo, page }: HandleDeleteProps) {
     // hover:text-red-500 bg-[#003944]
     <>
       <i
-        className=" transition-colors  hover:text-cyan-900"
+        className=" cursor-pointer hover:text-cyan-900"
         onClick={() => handleDelete(todo.id)}
       >
         <FaTrash />

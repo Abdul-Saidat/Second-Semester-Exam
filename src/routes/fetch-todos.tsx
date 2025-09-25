@@ -7,6 +7,7 @@ import SearchInput from "../components/SearchInput";
 import Filter from "../components/Filter";
 import FilterButtons from "../components/FilterButtons";
 import HandleDelete from "../components/DeleteTodo";
+import CreateTodo from "../components/CreateTodo";
 import type { LocationState } from "../types";
 import { getCreatedTodos } from "../../src/utils/storage";
 import SignOut from "../components/SignOut";
@@ -131,67 +132,75 @@ function FetchTodos() {
 
   return (
     <>
-      <section className=" flex justify-center py-10 pt-20 ">
-        <div className=" flex flex-col gap-y-8 w-full max-w-2xl min-h-[80vh] shadow-lg p-10 rounded-lg backdrop-blur-lg  ">
-          <h1 className="text-center">TODO-LIST</h1>
-          <form
-            action=""
-            onSubmit={handleSubmit}
-            name="todo-form"
-            className="w-full flex flex-col gap-y-8"
-          >
-            <div className=" flex flex-col gap-6 w-full items-center ">
+      <section className="flex flex-col gap-10 mx-auto py-15 ">
+        <h1 className="text-center text-5xl md:text-6xl">TODO-LIST</h1>
+        <form
+          action=""
+          onSubmit={handleSubmit}
+          name="todo-form"
+          className="w-full flex flex-col gap-y-8"
+        >
+          <div className="flex flex-col items-center justify-center px-6">
+            <div className="mb-5 py-5">
               <SearchInput
                 searchTerm={searchTerm}
                 setSearchTerm={setSearchTerm}
               />
-              <div className="w-full max-w-sm mx-auto px-4 space-y-6  cursor-pointer ">
-                {finalDisplayTodos.map((todo) => (
-                  <div
-                    key={todo.id}
-                    className=" flex items-center justify-between gap-4 border h-auto  px-5 py-4 rounded-lg shadow "
-                  >
-                    <ul>
-                      <label htmlFor="todo-check">
-                        <input
-                          className="w-5 h-5 cursor-pointer"
-                          type="checkbox"
-                          name="checkbox"
-                          id="todo-check"
-                          checked={checkedTodos.includes(todo.id)}
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              setCheckedTodos([...checkedTodos, todo.id]);
-                            } else {
-                              setCheckedTodos(
-                                checkedTodos.filter((id) => id !== todo.id)
-                              );
-                            }
-                          }}
-                        />{" "}
-                        <Link
-                          className={"font-semibold text-lg"}
-                          to={`/todos/${todo.id}`}
-                          state={linkState}
-                        >
-                          {" "}
-                          {todo.title}{" "}
-                        </Link>
-                      </label>
-                    </ul>
-                    <HandleDelete todo={todo} page={page} />
-                  </div>
-                ))}
-              </div>
             </div>
-            <div>{isFetching ? "Updating..." : ""}</div>
-            <FilterButtons page={page} setPage={setPage} />
-            <SignOut />
-            <Filter
-              completionStatus={completionStatus}
-              setCompletionStatus={setCompletionStatus}
-            />
-          </form>
+
+            <div className="mb-8">
+              <CreateTodo />
+            </div>
+
+            <div className="  space-y-6  ">
+              {finalDisplayTodos.map((todo) => (
+                <div
+                  key={todo.id}
+                  className=" md:w-[600px] flex items-center justify-between gap-4 border h-auto px-5 py-4 rounded-lg shadow-lg "
+                >
+                  <ul>
+                    <label htmlFor="todo-check">
+                      <input
+                        className="w-10 h-5 cursor-pointer border border-slate-400"
+                        type="checkbox"
+                        name="checkbox"
+                        id="todo-check"
+                        checked={checkedTodos.includes(todo.id)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setCheckedTodos([...checkedTodos, todo.id]);
+                          } else {
+                            setCheckedTodos(
+                              checkedTodos.filter((id) => id !== todo.id)
+                            );
+                          }
+                        }}
+                      />{" "}
+                      <Link
+                        className={"font-semibold text-lg"}
+                        to={`/todos/${todo.id}`}
+                        state={linkState}
+                      >
+                        {" "}
+                        {todo.title}{" "}
+                      </Link>
+                    </label>
+                  </ul>
+                  <HandleDelete todo={todo} page={page} />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>{isFetching ? "Updating..." : ""}</div>
+          <FilterButtons page={page} setPage={setPage} />
+
+          <Filter
+            completionStatus={completionStatus}
+            setCompletionStatus={setCompletionStatus}
+          />
+        </form>
+        <div className="flex items-center justify-center mx-auto ">
+          <SignOut />
         </div>
       </section>
     </>

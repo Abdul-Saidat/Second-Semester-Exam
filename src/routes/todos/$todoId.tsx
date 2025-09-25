@@ -99,18 +99,19 @@ function TodoDetailPage() {
 
   return (
     <>
-      <section className="flex justify-center items-center h-screen ">
+    <section className="flex justify-center items-center h-screen px-10 bg-slate-100">
         <div className="w-full max-w-lg mx-auto">
-          <div className=" border shadow-lg rounded-lg backdrop-blur-lg flex flex-col gap-y-6 items-center">
+          <div className=" border shadow-lg rounded-lg backdrop-blur-lg flex flex-col gap-y-6 items-center py-5">
             <h1 className=" text-xl text-center font-bold ">Todo Detail</h1>
             <span className="font-bold">Title: </span>{" "}
-            <span className="">{todo.title}</span>
+            <span className="">{todo?.title ?? "No Title"}</span>
             <Status completionStatus={isChecked} />
             <p>
-              <span className="font-bold"> ID: </span> <span> {todo.id} </span>
+              <span className="font-bold"> ID: </span>{" "}
+              <span> {todo?.id ?? "No id"} </span>
             </p>
-            <Link to="/" state={linkState as any}>
-              <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
+            <Link to={"/fetch-todos"}>
+              <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl border cursor-pointer rounded-md px-5 py-2 bg-slate-600 hover:bg-slate-700 text-slate-50 text-sm">
                 Back To List
               </button>
             </Link>

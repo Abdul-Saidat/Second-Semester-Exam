@@ -8,24 +8,26 @@ function FilterButtons({ page, setPage }: PageProps) {
 
   return (
     <>
-      <section className="join grid grid-cols-3 mb-8">
+       <div className="flex justify-evenly">
         <button
-          className="join-item btn btn-outline shadow-md"
+          className="px-2 py-2 text-[15px] md:text-base md:px-5 md:py-3 cursor-pointer rounded-sm bg-slate-300 text-slate-700 hover:bg-slate-400 shadow-md"
           onClick={() => setPage((prev) => (prev > 1 ? prev - 1 : 1))}
           disabled={page === 1}
         >
-          Previous page
+          Previous Page
         </button>
-        <span className="col-span-1 text-lg font-bold text-center self-center">
-          Page {page} of {Page}{" "}
+
+        <span className="col-span-1 text-[16px] md:text-lg font-bold text-center self-center">
+          Page {page} of {Page}
         </span>
+
         <button
-          className="join-item btn btn-outline shadow-md "
+          className="px-2 py-2 text-[15px] md:px-5 md:py-3 cursor-pointer rounded-sm bg-slate-300 text-slate-700 hover:bg-slate-400 shadow-md"
           onClick={() => setPage((prev) => prev + 1)}
         >
           Next Page
         </button>
-      </section>
+      </div>
     </>
   );
 }

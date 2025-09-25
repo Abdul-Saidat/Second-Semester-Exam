@@ -49,7 +49,8 @@ function RootComponent() {
           }}
           activeOptions={{ exact: true }}
         >
-          {isAuthenticated ? "Todos" : "Landing Page"}
+          
+          {/* {isAuthenticated ? "Todos" : "Landing Page"} */}
         </Link>
 
         {/* <Link

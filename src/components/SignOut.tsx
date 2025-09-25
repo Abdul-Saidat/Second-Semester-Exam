@@ -17,7 +17,11 @@ function SignOut() {
   };
   return (
     <>
-      <button type="submit" onClick={onSubmit}>
+      <button
+        className="px-20 py-2 md:w-xl text-white bg-red-500 hover:bg-red-700 cursor-pointer rounded-full"
+        type="submit"
+        onClick={onSubmit}
+      >
         {isSigningOut ? "Signing Out" : "Sign Out"}
       </button>
     </>

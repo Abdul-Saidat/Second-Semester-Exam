@@ -6,15 +6,15 @@ interface AuthModalProps {
 function AuthModal({ children, onClose }: AuthModalProps) {
   return (
     <>
-      <div
-        className="fixed flex flex-col items-center justify-center z-50 bg-black/50 backdrop-blur-2xl"
-        onClick={onClose}
-      >
+      <div className="w-full h-screen z-50 bg-[var(--overlay)] fixed top-0 right-0 flex items-center justify-center">
         <div
-          className="bg-white rounded-xl w-5xl shadow-lg"
+          className="bg-white w-[300px] md:w-[450px] rounded-xl shadow-lg relative"
           onClick={(e) => e.stopPropagation()}
         >
-          <button className="absolute top-4 right-4" onClick={onClose}>
+          <button
+            className="cursor-pointer absolute top-0 right-5 text-3xl z-10"
+            onClick={onClose}
+          >
             &times;
           </button>
           {children}

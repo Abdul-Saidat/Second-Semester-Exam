@@ -1,16 +1,14 @@
-import CreateTodo from "./CreateTodo";
-
 interface SearchProps {
   searchTerm: string;
-  setSearchTerm: (value: string) => void
+  setSearchTerm: (value: string) => void;
 }
 
 function SearchInput({ searchTerm, setSearchTerm }: SearchProps) {
   return (
     <>
-      <label className=" w-full input flex items-center gap-1 rounded-lg py-4 md:max-w-md mx-auto">
+      <label className=" w-full input flex gap-1 rounded-lg py-4 md:max-w-md mx-auto">
         <svg
-          className="h-[1em] opacity-50"
+          className="h-[2em] opacity-50"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
         >
@@ -30,7 +28,7 @@ function SearchInput({ searchTerm, setSearchTerm }: SearchProps) {
           placeholder="Search"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="text-white focus:outline-none rounded-lg"
+          className="text-slate-700 h-7 focus:border-slate-500 rounded-md border-2 border-slate-400 px-2"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               e.preventDefault();
@@ -38,9 +36,6 @@ function SearchInput({ searchTerm, setSearchTerm }: SearchProps) {
           }}
         />
       </label>
-      <div>
-        <CreateTodo />
-      </div>
     </>
   );
 }
