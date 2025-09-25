@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useLocation } from "@tanstack/react-router";
 import SearchInput from "../components/SearchInput";
@@ -8,26 +8,38 @@ import Filter from "../components/Filter";
 import FilterButtons from "../components/FilterButtons";
 import HandleDelete from "../components/DeleteTodo";
 import type { LocationState } from "../types";
+import { getCreatedTodos } from "../../src/utils/storage";
+// import { all } from "axios";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
 });
 
-interface Todo {
+interface Todos {
   id: number;
-  todo: string;
+  todo?: string;
   title: string;
   completed: boolean;
+  userId?: number;
 }
 
-const fetchTodos = async (page: number): Promise<Todo[]> => {
-  const PER_PAGE = 10;
+const PER_PAGE = 10;
+
+const fetchTodos = async (page: number): Promise<Todos[]> => {
   const _start = (page - 1) * PER_PAGE;
   const response = await fetch(
     `https://jsonplaceholder.typicode.com/todos?_start=${_start}&_limit=${PER_PAGE}`
   );
   if (!response.ok) throw new Error("failed to fetch");
-  return response.json() as Promise<Todo[]>;
+  const apiTodos: Todos[] = await response.json();
+  const createdTodos = getCreatedTodos();
+  let allTodos;
+  if (page === 1) {
+    allTodos = [...createdTodos, ...apiTodos];
+  } else {
+    allTodos = apiTodos;
+  }
+  return allTodos.slice(0, PER_PAGE);
 };
 
 function isLocationState(s: unknown): s is LocationState {
@@ -41,9 +53,7 @@ function isLocationState(s: unknown): s is LocationState {
 
 function RouteComponent() {
   type CompletionStatus = "all" | "completed" | "uncompleted";
-  const Page = 200;
   const location = useLocation();
-  // const incomingPage = location.state?.currentPage;
   const incomingPage = isLocationState(location.state)
     ? location.state.currentPage
     : undefined;
@@ -52,10 +62,9 @@ function RouteComponent() {
     useState<CompletionStatus>("all");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { isPending, error, data, isFetching } = useQuery<Todo[], Error>({
+  const { isPending, error, data, isFetching } = useQuery<Todos[], Error>({
     queryKey: ["todos", page],
     queryFn: () => fetchTodos(page),
-    placeholderData: keepPreviousData,
   });
 
   // store checked todos in localStorage
@@ -77,6 +86,7 @@ function RouteComponent() {
   useEffect(() => {
     localStorage.setItem("checkedTodoIds", JSON.stringify(checkedTodos));
   }, [checkedTodos]);
+
   if (isPending)
     return (
       <div className="flex items-center justify-center  min-h-screen">
@@ -98,21 +108,21 @@ function RouteComponent() {
   };
 
   // filter by title
-  const searchResult = (data ?? []).filter((todo: Todo) =>
-    todo.title.toLowerCase().includes(searchTerm.toLowerCase())
+  const searchResult = (data ?? ([] as Todos[])).filter((todo: Todos) =>
+    (todo.title ?? "").toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // filter todo by "completed" and "uncompleted"
-  let finalDisplayTodos: Todo[] = [];
+  let finalDisplayTodos: Todos[] = [];
   if (completionStatus == "all") {
     finalDisplayTodos = searchResult;
   } else if (completionStatus == "completed") {
-    finalDisplayTodos = searchResult.filter((todo: Todo) =>
+    finalDisplayTodos = searchResult.filter((todo: Todos) =>
       checkedTodos.some((id: number) => todo.id === id)
     );
   } else {
     finalDisplayTodos = searchResult.filter(
-      (todo: Todo) => !checkedTodos.some((id: number) => todo.id === id)
+      (todo: Todos) => !checkedTodos.some((id: number) => todo.id === id)
     );
   }
 
