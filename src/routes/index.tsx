@@ -12,7 +12,7 @@ function LandingPage() {
   const [authMode, setAuthMode] = useState<"signin" | "signup" | null>(null);
   return (
     <>
-      <section className="my-15 flex flex-col items-center justify-center">
+      <section className="my-15 mx-4 flex flex-col items-center justify-center">
         <h1 className="text-5xl md:text-6xl text-center"> TODO APP</h1>
         <div className="py-5">
           <p className="text-[18px]">

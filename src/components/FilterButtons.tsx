@@ -14,7 +14,7 @@ function FilterButtons({ page, setPage }: PageProps) {
           onClick={() => setPage((prev) => (prev > 1 ? prev - 1 : 1))}
           disabled={page === 1}
         >
-          Previous Page
+          Prev
         </button>
 
         <span className="col-span-1 text-[16px] md:text-lg font-bold text-center self-center">
@@ -25,7 +25,7 @@ function FilterButtons({ page, setPage }: PageProps) {
           className="px-2 py-2 text-[15px] md:px-5 md:py-3 cursor-pointer rounded-sm bg-slate-300 text-slate-700 hover:bg-slate-400 shadow-md"
           onClick={() => setPage((prev) => prev + 1)}
         >
-          Next Page
+          Next
         </button>
       </div>
     </>
